@@ -153,6 +153,7 @@ MonoBehaviour:
   needsDest: 0
   hungry: 0
   age: 0
+  secsToAgeUp: 30
   evolution: 0
   sons: []
 --- !u!4 &281226549
