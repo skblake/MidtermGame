@@ -5,11 +5,22 @@ using UnityEngine;
 public class Fish : MonoBehaviour
 {
     public bool needsDest;
-    public bool hungry; 
+    public bool hungry;
+    public float age = 0f;
+    public float secsToAgeUp = 30f;
+    [HideInInspector] public int evolution = 0; 
 
     protected Vector3 destination;
 
     private bool swimsRight = true;
+    public List<FishAppearance> sons = new List<FishAppearance>();
+
+    void Update() 
+    { 
+        Swim();
+
+        age += Time.deltaTime / 30; 
+    }
 
     // Swims towards a destination
     public void Swim()
@@ -40,6 +51,16 @@ public class Fish : MonoBehaviour
             transform.rotation = Quaternion.Euler(0, -180f, 0);
         } else {
             transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+    }
+
+    public void MakeSons(List<FishAppearance> prefabs)
+    {
+        foreach (FishAppearance prefab in prefabs) {
+            FishAppearance evolution = GameObject.Instantiate(prefab, transform);
+            evolution.GetComponent<Transform>().position = new Vector3(0f, 0f, 0f);
+            evolution.SetIsSleeping(true);
+            sons.Add(evolution);
         }
     }
 

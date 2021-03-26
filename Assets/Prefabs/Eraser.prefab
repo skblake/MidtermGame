@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3257138927360327709}
   - component: {fileID: 3257138927360327708}
-  - component: {fileID: 3500507004705112289}
+  - component: {fileID: 5391355820166703883}
   m_Layer: 0
   m_Name: Eraser
   m_TagString: Untagged
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3500507004705112289
+--- !u!114 &5391355820166703883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,7 +91,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3257138927360327699}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6d97ce2773124c4da5bf4c1967d493f, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ed61d18ca1b94f9281c2a7f59603a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destination: {x: 0, y: 0, z: 0}

@@ -6,15 +6,28 @@ public class FishGod : MonoBehaviour
 {
     // ASSIGN IN INSPECTOR
     public Food foodPrefab;
-    public List<Fish> fishList = new List<Fish>();
+    public Fish fish;
+    public List<FishAppearance> fishPrefabs = new List<FishAppearance>();
 
     public int maxFood = 5;
 
+    private Camera cam; 
+    
     private List<Food> readyFoods = new List<Food>();
     private List<Food> activeFoods = new List<Food>();
+    
+    private List<FishAppearance> evolutions = new List<FishAppearance>();
+    
+    private int level = 0; 
+    private int gameEnd;
 
     void Start() 
     {
+        cam = GetComponent<Camera>();
+
+        fish.MakeSons(fishPrefabs);
+        gameEnd = fishPrefabs.Count;
+
         ScrambleFish();
 
         for (int i = 0; i < maxFood; i++) {
@@ -29,7 +42,7 @@ public class FishGod : MonoBehaviour
         // If I CLICK, feed fish.
         if(Input.GetMouseButtonDown(0) && readyFoods.Count > 0) {
             Food newFood = readyFoods[0];
-            newFood.Activate();
+            newFood.Activate(cam.ScreenToWorldPoint(Input.mousePosition));
         }
 
         // If I press SPACEBAR, tell all fish to randomly swim somewhere else.
@@ -38,8 +51,7 @@ public class FishGod : MonoBehaviour
 
     void ScrambleFish() 
     {
-        foreach (Fish fish in fishList)
-            fish.SetDestination(getRandomPos());
+        fish.SetDestination(getRandomPos());
     }
 
     // Manages lists of available and active foods
