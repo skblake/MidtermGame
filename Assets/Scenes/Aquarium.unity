@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -147,6 +148,24 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e70636ec7ed4af0ae0d10b164a60d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  foodPrefab: {fileID: 8909320244613078527, guid: bb81896a7ed4247fb870dc947a154955,
+    type: 3}
+  fishList:
+  - {fileID: 7230003356033217809}
+  - {fileID: 3257138926072339367}
+  maxFood: 5
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -273,6 +292,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57b5095fa1f1f4531ac61f9035c4b896, type: 3}
+--- !u!114 &3257138926072339367 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3500507004705112289, guid: 57b5095fa1f1f4531ac61f9035c4b896,
+    type: 3}
+  m_PrefabInstance: {fileID: 3257138926072339364}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6d97ce2773124c4da5bf4c1967d493f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7230003356033217806
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -280,6 +311,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7230003356399945600, guid: 4359ef1258e3b4b138da023f250285b9,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7230003356399945601, guid: 4359ef1258e3b4b138da023f250285b9,
         type: 3}
       propertyPath: m_RootOrder
@@ -342,3 +378,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4359ef1258e3b4b138da023f250285b9, type: 3}
+--- !u!114 &7230003356033217809 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1979995520696744408, guid: 4359ef1258e3b4b138da023f250285b9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7230003356033217806}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd84c1b9359f4633a18bc36b36f938e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
