@@ -12,6 +12,7 @@ public class Fish : MonoBehaviour
 
     protected Vector3 destination;
 
+    private FishGod god;
     private bool swimsRight = true;
     public List<FishAppearance> sons = new List<FishAppearance>();
 
@@ -19,7 +20,8 @@ public class Fish : MonoBehaviour
     { 
         Swim();
 
-        age += Time.deltaTime / 30; 
+        age += Time.deltaTime / secsToAgeUp; 
+        //if ((int)age != evolution) god.AgeUp();
     }
 
     // Swims towards a destination
@@ -27,18 +29,19 @@ public class Fish : MonoBehaviour
     {
         Vector3 swimVector = destination - transform.position;
         transform.position += swimVector.normalized * Time.deltaTime;
+        Debug.DrawLine(transform.position, destination, Color.yellow);
 
         // Stops the fish when it reaches its destination
-        if (Vector3.Distance(destination, transform.position) < 0.1f)
+        if (Vector3.Distance(destination, transform.position) < 0.1f) {
             destination = transform.position;
-
-        Debug.DrawLine(transform.position, destination, Color.yellow);
+            needsDest = true;
+        }        
     }
 
     // Special behavior if the fish's destination is a food
     public void SetDestination(Food food)
     {
-        food.AddChaser(this); 
+        // food.AddChaser(this); 
         SetDestination(new Vector2(food.transform.position.x, food.transform.position.y));
     }
 
@@ -68,4 +71,16 @@ public class Fish : MonoBehaviour
     {
         hungry = false;
     }
+    /*
+    void AgeUp()
+    {
+        if (god.GetLevel() < sons.Count) {
+            sons[god.GetLevel()].SetIsSleeping(true);
+            god.LevelUp()++;
+            sons[god.GetLevel()].SetIsSleeping(false);
+        }
+    }
+    */
+
+    public void SetGod(FishGod g) => god = g;
 }

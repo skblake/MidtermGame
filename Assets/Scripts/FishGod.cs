@@ -18,13 +18,14 @@ public class FishGod : MonoBehaviour
     
     private List<FishAppearance> evolutions = new List<FishAppearance>();
     
-    private int level = 0; 
+    private int level = 0; //TODO: Make this a property with getter/setter
     private int gameEnd;
 
     void Start() 
     {
         cam = GetComponent<Camera>();
 
+        fish.SetGod(this);
         fish.MakeSons(fishPrefabs);
         gameEnd = fishPrefabs.Count;
 
@@ -32,7 +33,7 @@ public class FishGod : MonoBehaviour
 
         for (int i = 0; i < maxFood; i++) {
             Food newFood = GameObject.Instantiate(foodPrefab);
-            newFood.god = this;
+            newFood.SetGod(this);
             readyFoods.Add(newFood);
         }
     }
@@ -43,15 +44,17 @@ public class FishGod : MonoBehaviour
         if(Input.GetMouseButtonDown(0) && readyFoods.Count > 0) {
             Food newFood = readyFoods[0];
             newFood.Activate(cam.ScreenToWorldPoint(Input.mousePosition));
+            // fish.SetDestination(newFood);
         }
 
         // If I press SPACEBAR, tell all fish to randomly swim somewhere else.
-        if (Input.GetKeyDown(KeyCode.Space)) ScrambleFish();
+        if (Input.GetKeyDown(KeyCode.Space) || fish.needsDest) ScrambleFish();
     }
 
     void ScrambleFish() 
     {
-        fish.SetDestination(getRandomPos());
+        fish.SetDestination(GetRandomPos());
+        fish.needsDest = false;
     }
 
     // Manages lists of available and active foods
@@ -65,7 +68,20 @@ public class FishGod : MonoBehaviour
             if ( activeFoods.Contains(food)) activeFoods.Remove(food);
         }
     }
+    
+    /*
+    public void AgeUp()
+    {
+        if (level < fish.sons.Count) {
+            fish.sons[level].SetIsSleeping(true);
+            LevelUp();
+            fish.sons[level].SetIsSleeping(false);
+        }
+    }*/
+    
+    public void LevelUp() => level++;
+    public int GetLevel() => level;
 
-    public Color makeColor (float r, float g, float b) => new Color (r/255, g/255, b/255);
-    private Vector2 getRandomPos() => new Vector2(Random.Range(-7f, 7f), Random.Range(-4f, 4f));
+    public Color MakeColor (float r, float g, float b) => new Color (r/255, g/255, b/255);
+    private Vector2 GetRandomPos() => new Vector2(Random.Range(-7f, 7f), Random.Range(-4f, 4f));
 }

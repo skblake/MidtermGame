@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Food : MonoBehaviour
 {
-    public FishGod god; 
     public float driftSpeed = 2f;
+    public bool chased = false;
 
-    private List<Fish> chasers = new List<Fish>();
+    private FishGod god; 
     private bool eaten = false;
 
     public void Activate(Vector2 pos)
@@ -15,6 +15,11 @@ public class Food : MonoBehaviour
         gameObject.SetActive(true);
         god.UpdateFood(this, true);
         transform.position = pos;
+    }
+
+    void OnTriggerEnter2D(Collider2D activator)
+    {
+        if (activator.GetComponent<FishAppearance>()!= null) BeEatenBy(god.fish);
     }
 
     void Update()
@@ -37,13 +42,13 @@ public class Food : MonoBehaviour
     void Deactivate()
     {
         // If fish is chasing this food, flag it to have its destination reset
-        foreach (Fish fish in chasers) fish.needsDest = true;
+        if (chased) god.fish.needsDest = true;
 
-        chasers = new List<Fish>();
-        eaten = false;
+        eaten = chased = false;
         god.UpdateFood(this, false);
         gameObject.SetActive(false);
     }
 
-    public void AddChaser(Fish fish) => chasers.Add(fish);
+    // public void AddChaser(Fish fish) => chasers.Add(fish);
+    public void SetGod(FishGod g) => god = g;
 }
