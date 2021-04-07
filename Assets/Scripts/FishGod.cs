@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class FishGod : MonoBehaviour
 {
-    // ASSIGN IN INSPECTOR
-    public Food foodPrefab;
+    //// ASSIGN IN INSPECTOR ////
     public Fish fish;
     public List<FishAppearance> fishPrefabs = new List<FishAppearance>();
 
+    public Food foodPrefab;
     public int maxFood = 5;
+    /////////////////////////////
+
+    [HideInInspector] 
+    public enum FishState { Vibing, Hungry }
 
     private Camera cam; 
     
@@ -27,6 +31,7 @@ public class FishGod : MonoBehaviour
 
         fish.SetGod(this);
         fish.MakeSons(fishPrefabs);
+        fish.ChangeState(FishState.Vibing);
         gameEnd = fishPrefabs.Count;
 
         ScrambleFish();
@@ -44,7 +49,7 @@ public class FishGod : MonoBehaviour
         if(Input.GetMouseButtonDown(0) && readyFoods.Count > 0) {
             Food newFood = readyFoods[0];
             newFood.Activate(cam.ScreenToWorldPoint(Input.mousePosition));
-            // fish.SetDestination(newFood);
+            if (fish.state == FishState.Hungry) FindNearestFood(fish.transform.position);
         }
 
         // If I press SPACEBAR, tell all fish to randomly swim somewhere else.
@@ -68,16 +73,16 @@ public class FishGod : MonoBehaviour
             if ( activeFoods.Contains(food)) activeFoods.Remove(food);
         }
     }
-    
-    /*
-    public void AgeUp()
+
+    public void FindNearestFood(Vector3 pos)
     {
-        if (level < fish.sons.Count) {
-            fish.sons[level].SetIsSleeping(true);
-            LevelUp();
-            fish.sons[level].SetIsSleeping(false);
-        }
-    }*/
+        Debug.Log("FIND FOOD");
+    }
+
+    public void GameEnd()
+    {
+        Debug.Log("GAME END");
+    }
     
     public void LevelUp() => level++;
     public int GetLevel() => level;

@@ -95,6 +95,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ed61d18ca1b94f9281c2a7f59603a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vibeSprite: {fileID: 21300000, guid: 17ff6877e431f4ba081d819ec0cba495, type: 3}
+  hungrySprite: {fileID: 21300000, guid: 7d37505ebfa064bfda0121f6146a26e5, type: 3}
 --- !u!60 &5065577011105154508
 PolygonCollider2D:
   m_ObjectHideFlags: 0

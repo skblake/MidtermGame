@@ -8,20 +8,29 @@ public class Fish : MonoBehaviour
     public bool hungry;
     public float age = 0f;
     public float secsToAgeUp = 30f;
-    [HideInInspector] public int evolution = 0; 
+    public float hungerThreshold = 5f; // Hunger timer in seconds
+    
+    [HideInInspector] 
+    public List<FishAppearance> sons = new List<FishAppearance>();
+    [HideInInspector]
+    public FishGod.FishState state;
 
-    protected Vector3 destination;
-
+    private Vector3 destination;
     private FishGod god;
     private bool swimsRight = true;
-    public List<FishAppearance> sons = new List<FishAppearance>();
+    private float hungerTimer = 0f;
 
     void Update() 
     { 
-        Swim();
-
         age += Time.deltaTime / secsToAgeUp; 
-        //if ((int)age != evolution) god.AgeUp();
+        hungerTimer += Time.deltaTime;
+
+        if (state != FishGod.FishState.Hungry && hungerTimer > hungerThreshold) 
+            ChangeState(FishGod.FishState.Hungry); 
+        
+        if ((int)age != god.GetLevel()) AgeUp();
+
+        Swim();
     }
 
     // Swims towards a destination
@@ -61,26 +70,45 @@ public class Fish : MonoBehaviour
     {
         foreach (FishAppearance prefab in prefabs) {
             FishAppearance evolution = GameObject.Instantiate(prefab, transform);
+            evolution.LinkAndSleep(god);
             evolution.GetComponent<Transform>().position = new Vector3(0f, 0f, 0f);
-            evolution.SetIsSleeping(true);
             sons.Add(evolution);
         }
+
+        // For some reason, it only works on the second element in the list? 
+        // If you pass in 0 or FishGod.level (also 0), the sprites don't update
+        // when the fish gets hungry. 
+        // Also, the order of the sprites in the list is the reverse of what it is
+        // in the Inspector. 
+        sons[1].SetIsSleeping(false); // Wake current appearance
     }
 
     public void Eat()
     {
-        hungry = false;
+        Debug.Log("EAT");
+        ChangeState(FishGod.FishState.Vibing);
+        hungerTimer = 0f;
     }
-    /*
-    void AgeUp()
+    
+    private void AgeUp()
     {
+        Debug.Log("AGE UP");
         if (god.GetLevel() < sons.Count) {
             sons[god.GetLevel()].SetIsSleeping(true);
-            god.LevelUp()++;
+            god.LevelUp();
             sons[god.GetLevel()].SetIsSleeping(false);
+        } else {
+            god.GameEnd();
         }
     }
-    */
+
+    public void ChangeState(FishGod.FishState s) 
+    {
+        state = s;
+        sons[god.GetLevel()].UpdateState(s);
+
+        if (s == FishGod.FishState.Hungry) god.FindNearestFood(transform.position);
+    }
 
     public void SetGod(FishGod g) => god = g;
 }

@@ -154,8 +154,9 @@ MonoBehaviour:
   hungry: 0
   age: 0
   secsToAgeUp: 30
-  evolution: 0
+  hungerThreshold: 5
   sons: []
+  state: 0
 --- !u!4 &281226549
 Transform:
   m_ObjectHideFlags: 0
@@ -209,12 +210,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80e70636ec7ed4af0ae0d10b164a60d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  foodPrefab: {fileID: 8909320244613078527, guid: bb81896a7ed4247fb870dc947a154955,
-    type: 3}
   fish: {fileID: 281226548}
   fishPrefabs:
-  - {fileID: 1424806313634704612, guid: 4359ef1258e3b4b138da023f250285b9, type: 3}
   - {fileID: 5391355820166703883, guid: 57b5095fa1f1f4531ac61f9035c4b896, type: 3}
+  - {fileID: 1424806313634704612, guid: 4359ef1258e3b4b138da023f250285b9, type: 3}
+  foodPrefab: {fileID: 8909320244613078527, guid: bb81896a7ed4247fb870dc947a154955,
+    type: 3}
   maxFood: 5
 --- !u!20 &519420031
 Camera:

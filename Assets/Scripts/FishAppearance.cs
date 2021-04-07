@@ -4,18 +4,37 @@ using UnityEngine;
 
 public class FishAppearance : MonoBehaviour
 {
-    void Activate() 
+    //// ASSIGN IN INSPECTOR ////
+    public Sprite vibeSprite;
+    public Sprite hungrySprite;
+    /////////////////////////////
+
+    private FishGod god;
+
+    // Connects this appearance to FishGod and puts it to sleep
+    public void LinkAndSleep(FishGod g)
     {
-        gameObject.SetActive(true);
+        god = g;
+        SetIsSleeping(true);
     }
 
-    void Deactivate() 
-    {
-        gameObject.SetActive(false);
-    }
+    void Activate()   => gameObject.SetActive(true );
+    void Deactivate() => gameObject.SetActive(false);
 
     public void SetIsSleeping(bool awake) {
         if (awake) { Activate();   }
         else       { Deactivate(); }
+    }
+
+    public void UpdateState(FishGod.FishState s) 
+    {
+        switch (s) {
+            case (FishGod.FishState.Vibing):
+                GetComponent<SpriteRenderer>().sprite = vibeSprite;
+            break;
+            case (FishGod.FishState.Hungry):
+                GetComponent<SpriteRenderer>().sprite = hungrySprite;
+            break;
+        }
     }
 }
